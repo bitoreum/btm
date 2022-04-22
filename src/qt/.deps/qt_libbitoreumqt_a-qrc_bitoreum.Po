@@ -1,0 +1,1 @@
+qt/qt_libbitoreumqt_a-qrc_bitoreum.o: qt/qrc_bitoreum.cpp
