@@ -1,4 +1,4 @@
-Name "Bitoreum Core (64-bit)"
+Name "Bitoreum Core (-bit)"
 
 RequestExecutionLevel highest
 SetCompressor /SOLID lzma
@@ -10,26 +10,26 @@ SetCompressor /SOLID lzma
 !define URL https://bitoreum.org/
 
 # MUI Symbol Definitions
-!define MUI_ICON "/home/ubuntu/sm-fix/bitoreum/share/pixmaps/dash.ico"
-!define MUI_WELCOMEFINISHPAGE_BITMAP "/home/ubuntu/sm-fix/bitoreum/share/pixmaps/nsis-wizard.bmp"
+!define MUI_ICON "/Users/marius/src/btm/share/pixmaps/dash.ico"
+!define MUI_WELCOMEFINISHPAGE_BITMAP "/Users/marius/src/btm/share/pixmaps/nsis-wizard.bmp"
 !define MUI_HEADERIMAGE
 !define MUI_HEADERIMAGE_RIGHT
-!define MUI_HEADERIMAGE_BITMAP "/home/ubuntu/sm-fix/bitoreum/share/pixmaps/nsis-header.bmp"
+!define MUI_HEADERIMAGE_BITMAP "/Users/marius/src/btm/share/pixmaps/nsis-header.bmp"
 !define MUI_FINISHPAGE_NOAUTOCLOSE
 !define MUI_STABTMENUPAGE_REGISTRY_ROOT HKLM
 !define MUI_STABTMENUPAGE_REGISTRY_KEY ${REGKEY}
 !define MUI_STABTMENUPAGE_REGISTRY_VALUENAME StartMenuGroup
 !define MUI_STABTMENUPAGE_DEFAULTFOLDER "Bitoreum Core"
 !define MUI_FINISHPAGE_RUN "$WINDIR\explorer.exe"
-!define MUI_FINISHPAGE_RUN_PARAMETERS $INSTDIR\bitoreum-qt.exe
+!define MUI_FINISHPAGE_RUN_PARAMETERS $INSTDIR\bitoreum-qt
 !define MUI_UNICON "${NSISDIR}\Contrib\Graphics\Icons\modern-uninstall.ico"
-!define MUI_UNWELCOMEFINISHPAGE_BITMAP "/home/ubuntu/sm-fix/bitoreum/share/pixmaps/nsis-wizard.bmp"
+!define MUI_UNWELCOMEFINISHPAGE_BITMAP "/Users/marius/src/btm/share/pixmaps/nsis-wizard.bmp"
 !define MUI_UNFINISHPAGE_NOAUTOCLOSE
 
 # Included files
 !include Sections.nsh
 !include MUI2.nsh
-!if "64" == "64"
+!if "" == "64"
 !include x64.nsh
 !endif
 
@@ -49,8 +49,8 @@ Var StartMenuGroup
 !insertmacro MUI_LANGUAGE English
 
 # Installer attributes
-OutFile /home/ubuntu/sm-fix/bitoreum/bitoreumcore-${VERSION}-win64-setup.exe
-!if "64" == "64"
+OutFile /Users/marius/src/btm/bitoreumcore-${VERSION}-win-setup.exe
+!if "" == "64"
 InstallDir $PROGRAMFILES64\BitoreumCore
 !else
 InstallDir $PROGRAMFILES\BitoreumCore
@@ -74,14 +74,14 @@ ShowUninstDetails show
 Section -Main SEC0000
     SetOutPath $INSTDIR
     SetOverwrite on
-    File /home/ubuntu/sm-fix/bitoreum/release/bitoreum-qt.exe
-    File /oname=COPYING.txt /home/ubuntu/sm-fix/bitoreum/COPYING
-    File /oname=readme.txt /home/ubuntu/sm-fix/bitoreum/doc/README_windows.txt
+    File /Users/marius/src/btm/release/bitoreum-qt
+    File /oname=COPYING.txt /Users/marius/src/btm/COPYING
+    File /oname=readme.txt /Users/marius/src/btm/doc/README_windows.txt
     SetOutPath $INSTDIR\daemon
-    File /home/ubuntu/sm-fix/bitoreum/release/bitoreumd.exe
-    File /home/ubuntu/sm-fix/bitoreum/release/bitoreum-cli.exe
+    File /Users/marius/src/btm/release/bitoreumd
+    File /Users/marius/src/btm/release/bitoreum-cli
     SetOutPath $INSTDIR\doc
-    File /r /x Makefile* /home/ubuntu/sm-fix/bitoreum/doc\*.*
+    File /r /x Makefile* /Users/marius/src/btm/doc\*.*
     SetOutPath $INSTDIR
     WriteRegStr HKCU "${REGKEY}\Components" Main 1
 SectionEnd
@@ -92,8 +92,8 @@ Section -post SEC0001
     WriteUninstaller $INSTDIR\uninstall.exe
     !insertmacro MUI_STABTMENU_WRITE_BEGIN Application
     CreateDirectory $SMPROGRAMS\$StartMenuGroup
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\$(^Name).lnk" $INSTDIR\bitoreum-qt.exe
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Bitoreum Core (testnet, 64-bit).lnk" "$INSTDIR\bitoreum-qt.exe" "-testnet" "$INSTDIR\bitoreum-qt.exe" 1
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\$(^Name).lnk" $INSTDIR\bitoreum-qt
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Bitoreum Core (testnet, -bit).lnk" "$INSTDIR\bitoreum-qt" "-testnet" "$INSTDIR\bitoreum-qt" 1
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Uninstall $(^Name).lnk" $INSTDIR\uninstall.exe
     !insertmacro MUI_STABTMENU_WRITE_END
     WriteRegStr HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayName "$(^Name)"
@@ -106,8 +106,8 @@ Section -post SEC0001
     WriteRegDWORD HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" NoRepair 1
     WriteRegStr HKCR "bitoreumcore" "URL Protocol" ""
     WriteRegStr HKCR "bitoreumcore" "" "URL:Bitoreum"
-    WriteRegStr HKCR "bitoreumcore\DefaultIcon" "" $INSTDIR\bitoreum-qt.exe
-    WriteRegStr HKCR "bitoreumcore\shell\open\command" "" '"$INSTDIR\bitoreum-qt.exe" "%1"'
+    WriteRegStr HKCR "bitoreumcore\DefaultIcon" "" $INSTDIR\bitoreum-qt
+    WriteRegStr HKCR "bitoreumcore\shell\open\command" "" '"$INSTDIR\bitoreum-qt" "%1"'
 SectionEnd
 
 # Macro for selecting uninstaller sections
@@ -125,7 +125,7 @@ done${UNSECTION_ID}:
 
 # Uninstaller sections
 Section /o -un.Main UNSEC0000
-    Delete /REBOOTOK $INSTDIR\bitoreum-qt.exe
+    Delete /REBOOTOK $INSTDIR\bitoreum-qt
     Delete /REBOOTOK $INSTDIR\COPYING.txt
     Delete /REBOOTOK $INSTDIR\readme.txt
     RMDir /r /REBOOTOK $INSTDIR\daemon
@@ -137,7 +137,7 @@ Section -un.post UNSEC0001
     DeleteRegKey HKCU "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)"
     Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Uninstall $(^Name).lnk"
     Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\$(^Name).lnk"
-    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Bitoreum Core (testnet, 64-bit).lnk"
+    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Bitoreum Core (testnet, -bit).lnk"
     Delete /REBOOTOK "$SMSTARTUP\Bitoreum.lnk"
     Delete /REBOOTOK $INSTDIR\uninstall.exe
     Delete /REBOOTOK $INSTDIR\debug.log
@@ -159,7 +159,7 @@ SectionEnd
 # Installer functions
 Function .onInit
     InitPluginsDir
-!if "64" == "64"
+!if "" == "64"
     ${If} ${RunningX64}
       ; disable registry redirection (enable access to 64-bit portion of registry)
       SetRegView 64

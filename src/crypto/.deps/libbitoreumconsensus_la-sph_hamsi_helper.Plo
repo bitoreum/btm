@@ -1,2 +1,2 @@
 crypto/libbitoreumconsensus_la-sph_hamsi_helper.lo: \
- crypto/sph_hamsi_helper.c
+  crypto/sph_hamsi_helper.c

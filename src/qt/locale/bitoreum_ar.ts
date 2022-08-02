@@ -1664,7 +1664,7 @@ https://www.transifex.com/projects/p/dash/</translation>
         <translation>الكمية و الجولات</translation>
     </message>
     <message>
-        <source>0 BTM / 0 Rounds</source>
+        <source>0 BTRM / 0 Rounds</source>
         <translation>0 داش / 0 جولات</translation>
     </message>
     <message>

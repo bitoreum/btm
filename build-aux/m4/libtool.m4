@@ -728,6 +728,7 @@ _LT_CONFIG_SAVE_COMMANDS([
     cat <<_LT_EOF >> "$cfgfile"
 #! $SHELL
 # Generated automatically by $as_me ($PACKAGE) $VERSION
+# Libtool was configured on host `(hostname || uname -n) 2>/dev/null | sed 1q`:
 # NOTE: Changes made to this file will be lost: look at ltmain.sh.
 
 # Provide generalized library-building support services.
@@ -1066,16 +1067,11 @@ _LT_EOF
       _lt_dar_allow_undefined='$wl-undefined ${wl}suppress' ;;
     darwin1.*)
       _lt_dar_allow_undefined='$wl-flat_namespace $wl-undefined ${wl}suppress' ;;
-    darwin*) # darwin 5.x on
-      # if running on 10.5 or later, the deployment target defaults
-      # to the OS version, if on x86, and 10.4, the deployment
-      # target defaults to 10.4. Don't you love it?
-      case ${MACOSX_DEPLOYMENT_TARGET-10.0},$host in
-	10.0,*86*-darwin8*|10.0,*-darwin[[91]]*)
-	  _lt_dar_allow_undefined='$wl-undefined ${wl}dynamic_lookup' ;;
-	10.[[012]][[,.]]*)
+    darwin*)
+      case ${MACOSX_DEPLOYMENT_TARGET},$host in
+	10.[[012]],*|,*powerpc*)
 	  _lt_dar_allow_undefined='$wl-flat_namespace $wl-undefined ${wl}suppress' ;;
-	10.*)
+	*)
 	  _lt_dar_allow_undefined='$wl-undefined ${wl}dynamic_lookup' ;;
       esac
     ;;
@@ -2275,7 +2271,7 @@ func_munge_path_list ()
 
 # _LT_SYS_DYNAMIC_LINKER([TAG])
 # -----------------------------
-# POBTME Fill in your ld.so characteristics
+# PORTME Fill in your ld.so characteristics
 m4_defun([_LT_SYS_DYNAMIC_LINKER],
 [AC_REQUIRE([AC_CANONICAL_HOST])dnl
 m4_require([_LT_DECL_EGREP])dnl
@@ -2886,18 +2882,6 @@ linux* | k*bsd*-gnu | kopensolaris*-gnu | gnu*)
   dynamic_linker='GNU/Linux ld.so'
   ;;
 
-netbsdelf*-gnu)
-  version_type=linux
-  need_lib_prefix=no
-  need_version=no
-  library_names_spec='${libname}${release}${shared_ext}$versuffix ${libname}${release}${shared_ext}$major ${libname}${shared_ext}'
-  soname_spec='${libname}${release}${shared_ext}$major'
-  shlibpath_var=LD_LIBRARY_PATH
-  shlibpath_overrides_runpath=no
-  hardcode_into_libs=yes
-  dynamic_linker='NetBSD ld.elf_so'
-  ;;
-
 netbsd*)
   version_type=sunos
   need_lib_prefix=no
@@ -3364,7 +3348,7 @@ with_gnu_ld=$lt_cv_prog_gnu_ld
 # _LT_CMD_RELOAD
 # --------------
 # find reload flag for linker
-#   -- POBTME Some linkers may need a different reload flag.
+#   -- PORTME Some linkers may need a different reload flag.
 m4_defun([_LT_CMD_RELOAD],
 [AC_CACHE_CHECK([for $LD option to reload object files],
   lt_cv_ld_reload_flag,
@@ -3434,7 +3418,7 @@ _LT_DECL([lt_truncate_bin], [lt_cv_truncate_bin], [1],
 # _LT_CHECK_MAGIC_METHOD
 # ----------------------
 # how to check for library dependencies
-#  -- POBTME fill in with the dynamic library characteristics
+#  -- PORTME fill in with the dynamic library characteristics
 m4_defun([_LT_CHECK_MAGIC_METHOD],
 [m4_require([_LT_DECL_EGREP])
 m4_require([_LT_DECL_OBJDUMP])
@@ -3557,7 +3541,7 @@ linux* | k*bsd*-gnu | kopensolaris*-gnu | gnu*)
   lt_cv_deplibs_check_method=pass_all
   ;;
 
-netbsd* | netbsdelf*-gnu)
+netbsd*)
   if echo __ELF__ | $CC -E - | $GREP __ELF__ > /dev/null; then
     lt_cv_deplibs_check_method='match_pattern /lib[[^/]]+(\.so\.[[0-9]]+\.[[0-9]]+|_pic\.a)$'
   else
@@ -3772,7 +3756,7 @@ dnl AC_DEFUN([AC_PROG_NM], [])
 # --------------------------------
 # how to determine the name of the shared library
 # associated with a specific link library.
-#  -- POBTME fill in with the dynamic library characteristics
+#  -- PORTME fill in with the dynamic library characteristics
 m4_defun([_LT_CHECK_SHAREDLIB_FROM_LINKLIB],
 [m4_require([_LT_DECL_EGREP])
 m4_require([_LT_DECL_OBJDUMP])
@@ -4435,7 +4419,7 @@ m4_if([$1], [CXX], [
 	    ;;
 	esac
 	;;
-      netbsd* | netbsdelf*-gnu)
+      netbsd*)
 	;;
       *qnx* | *nto*)
         # QNX uses GNU C++, but need to define -shared option too, otherwise
@@ -4635,7 +4619,7 @@ m4_if([$1], [CXX], [
       ;;
     esac
   else
-    # POBTME Check for flag to pass linker flags through the system compiler.
+    # PORTME Check for flag to pass linker flags through the system compiler.
     case $host_os in
     aix*)
       _LT_TAGVAR(lt_prog_compiler_wl, $1)='-Wl,'
@@ -4947,9 +4931,6 @@ m4_if([$1], [CXX], [
       ;;
     esac
     ;;
-  linux* | k*bsd*-gnu | gnu*)
-    _LT_TAGVAR(link_all_deplibs, $1)=no
-    ;;
   *)
     _LT_TAGVAR(export_symbols_cmds, $1)='$NM $libobjs $convenience | $global_symbol_pipe | $SED '\''s/.* //'\'' | sort | uniq > $export_symbols'
     ;;
@@ -5011,9 +4992,6 @@ dnl Note also adjust exclude_expsyms for C++ above.
     ;;
   openbsd* | bitrig*)
     with_gnu_ld=no
-    ;;
-  linux* | k*bsd*-gnu | gnu*)
-    _LT_TAGVAR(link_all_deplibs, $1)=no
     ;;
   esac
 
@@ -5269,7 +5247,7 @@ _LT_EOF
       fi
       ;;
 
-    netbsd* | netbsdelf*-gnu)
+    netbsd*)
       if echo __ELF__ | $CC -E - | $GREP __ELF__ >/dev/null; then
 	_LT_TAGVAR(archive_cmds, $1)='$LD -Bshareable $libobjs $deplibs $linker_flags -o $lib'
 	wlarc=
@@ -5355,7 +5333,7 @@ _LT_EOF
       _LT_TAGVAR(whole_archive_flag_spec, $1)=
     fi
   else
-    # POBTME fill in a description of your system's linker (not GNU ld)
+    # PORTME fill in a description of your system's linker (not GNU ld)
     case $host_os in
     aix3*)
       _LT_TAGVAR(allow_undefined_flag, $1)=unsupported
@@ -5790,7 +5768,6 @@ _LT_EOF
 	if test yes = "$lt_cv_irix_exported_symbol"; then
           _LT_TAGVAR(archive_expsym_cmds, $1)='$CC -shared $pic_flag $libobjs $deplibs $compiler_flags $wl-soname $wl$soname `test -n "$verstring" && func_echo_all "$wl-set_version $wl$verstring"` $wl-update_registry $wl$output_objdir/so_locations $wl-exports_file $wl$export_symbols -o $lib'
 	fi
-	_LT_TAGVAR(link_all_deplibs, $1)=no
       else
 	_LT_TAGVAR(archive_cmds, $1)='$CC -shared $libobjs $deplibs $compiler_flags -soname $soname `test -n "$verstring" && func_echo_all "-set_version $verstring"` -update_registry $output_objdir/so_locations -o $lib'
 	_LT_TAGVAR(archive_expsym_cmds, $1)='$CC -shared $libobjs $deplibs $compiler_flags -soname $soname `test -n "$verstring" && func_echo_all "-set_version $verstring"` -update_registry $output_objdir/so_locations -exports_file $export_symbols -o $lib'
@@ -5812,7 +5789,7 @@ _LT_EOF
       esac
       ;;
 
-    netbsd* | netbsdelf*-gnu)
+    netbsd*)
       if echo __ELF__ | $CC -E - | $GREP __ELF__ >/dev/null; then
 	_LT_TAGVAR(archive_cmds, $1)='$LD -Bshareable -o $lib $libobjs $deplibs $linker_flags'  # a.out
       else
@@ -6446,7 +6423,7 @@ if test yes != "$_lt_caught_CXX_error"; then
       wlarc=
     fi
 
-    # POBTME: fill in a description of your system's C++ link characteristics
+    # PORTME: fill in a description of your system's C++ link characteristics
     AC_MSG_CHECKING([whether the $compiler linker ($LD) supports shared libraries])
     _LT_TAGVAR(ld_shlibs, $1)=yes
     case $host_os in
@@ -7632,7 +7609,7 @@ fi
 $RM -f confest.$objext
 CFLAGS=$_lt_libdeps_save_CFLAGS
 
-# POBTME: override above test on systems where it is broken
+# PORTME: override above test on systems where it is broken
 m4_if([$1], [CXX],
 [case $host_os in
 interix[[3-9]]*)

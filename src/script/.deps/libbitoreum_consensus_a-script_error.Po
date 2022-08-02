@@ -1,4 +1,4 @@
 script/libbitoreum_consensus_a-script_error.o: script/script_error.cpp \
- script/script_error.h
+  script/script_error.h
 
 script/script_error.h:

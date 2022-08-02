@@ -1,4 +1,4 @@
-prefix=/home/ubuntu/sm-fix/bitoreum/depends/x86_64-w64-mingw32
+prefix=/Users/marius/src/btm/depends/x86_64-apple-darwin20.5.0
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include
